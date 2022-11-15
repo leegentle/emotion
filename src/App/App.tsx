@@ -1,34 +1,46 @@
 import { useState } from "react";
 import "./global.css";
-import axios from "axios";
-import { Progress, Tooltip } from "antd";
+import { Progress } from "antd";
 import "antd/dist/antd.css";
+import postApi from "../api/api";
 
 const App = () => {
   const [input, setInput] = useState("");
-  const [output, setOutput]: any = useState();
   const [count, setCount] = useState(0);
 
   const title = "#686A6C";
   const sub_title = "#aeaeae";
   const primary = "#54B095";
+  // const result = [
+  //   [0, 0, 0, 0, 0, 0],
+  //   [83.91, 3.65, 0.93, 0.78, 1.79, 8.95],
+  //   [0, 99.99, 0, 0, 0, 0],
+  //   [99.98, 0, 0, 0.01, 0.01, 0],
+  //   [0, 0, 0, 0, 0, 99.99],
+  //   [99.98, 0, 0, 0, 0.01, 0],
+  // ];
   const result = [
     [0, 0, 0, 0, 0, 0],
-    [83.91, 3.65, 0.93, 0.78, 1.79, 8.95],
     [0, 99.99, 0, 0, 0, 0],
+    [83.91, 3.65, 0.93, 0.78, 1.79, 8.95],
     [99.98, 0, 0, 0.01, 0.01, 0],
-    [0, 0, 0, 0, 0, 99.99],
     [99.98, 0, 0, 0, 0.01, 0],
+    [0, 0, 0, 0, 0, 99.99],
+    [3.56, 77.81, 18.39, 0.02, 0.05, 0.18],
+    [0.05, 0.02, 93.46, 0.05, 6.38, 0.04],
+    [43.13, 56.53, 0.11, 0.18, 0.01, 0.04],
+    [0.04, 0.08, 15.96, 63.23, 20.64, 0.05],
+    [0.02, 85.86, 0.07, 0.3, 13.73, 0.02],
   ];
 
-  const feelList = ["기쁨", "불안", "슬픔", "당황", "우울", "분노"];
+  const feelList = ["기쁨", "불안", "우울", "당황", "상처", "분노"];
 
-  const start = () => {
-    setTimeout(() => {
-      const _count = count + 1;
-      setCount(_count);
-      setOutput(result[_count]);
-    }, 1000);
+  const start = async () => {
+    const body = {
+      sentence: input,
+    };
+    const { data }: any = await postApi(body);
+    console.log(data);
   };
 
   return (
@@ -78,12 +90,6 @@ const App = () => {
                 </div>
               ))}
             </div>
-            {/* <p className={`mt-16 text-3xl text-[${title}]`}>
-              분류 : <span>기쁨</span>
-            </p>
-            <p className={`text-3xl text-[${title}]`}>
-              스코어 : <span>0.267</span>
-            </p> */}
           </div>
         )}
       </div>
