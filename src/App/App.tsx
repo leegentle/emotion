@@ -7,32 +7,13 @@ import postApi from "../api/api";
 const App = () => {
   const [input, setInput] = useState("");
   const [count, setCount] = useState(0);
+  const [data, setData] = useState<number[]>([]);
+
 
   const title = "#686A6C";
   const sub_title = "#aeaeae";
   const primary = "#54B095";
-  // const result = [
-  //   [0, 0, 0, 0, 0, 0],
-  //   [83.91, 3.65, 0.93, 0.78, 1.79, 8.95],
-  //   [0, 99.99, 0, 0, 0, 0],
-  //   [99.98, 0, 0, 0.01, 0.01, 0],
-  //   [0, 0, 0, 0, 0, 99.99],
-  //   [99.98, 0, 0, 0, 0.01, 0],
-  // ];
-  const result = [
-    [0, 0, 0, 0, 0, 0],
-    [0, 99.99, 0, 0, 0, 0],
-    [83.91, 3.65, 0.93, 0.78, 1.79, 8.95],
-    [99.98, 0, 0, 0.01, 0.01, 0],
-    [99.98, 0, 0, 0, 0.01, 0],
-    [0, 0, 0, 0, 0, 99.99],
-    [3.56, 77.81, 18.39, 0.02, 0.05, 0.18],
-    [0.05, 0.02, 93.46, 0.05, 6.38, 0.04],
-    [43.13, 56.53, 0.11, 0.18, 0.01, 0.04],
-    [0.04, 0.08, 15.96, 63.23, 20.64, 0.05],
-    [0.02, 85.86, 0.07, 0.3, 13.73, 0.02],
-  ];
-
+ 
   const feelList = ["기쁨", "불안", "우울", "당황", "상처", "분노"];
 
   const start = async () => {
@@ -41,6 +22,7 @@ const App = () => {
     };
     const { data }: any = await postApi(body);
     console.log(data);
+    setData(data);
   };
 
   return (
@@ -86,7 +68,7 @@ const App = () => {
               {feelList.map((el, idx) => (
                 <div>
                   <h2 className="text-xl text-center">{el}</h2>
-                  <Progress type="circle" percent={result[count][idx]} />
+                  <Progress type="circle" percent={data[idx]*100} />
                 </div>
               ))}
             </div>
