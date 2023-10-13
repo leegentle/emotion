@@ -93,7 +93,7 @@ const App = () => {
                 {SAD_LIST.map((el, idx) => (
                   <div>
                     <h2 className="text-xl text-center">{el}</h2>
-                    <Progress type="circle" percent={data.sad[idx] * 100} />
+                    <Progress type="circle" percent={Math.floor(data.sad[idx] * 100)} />
                   </div>
                 ))}
               </>
