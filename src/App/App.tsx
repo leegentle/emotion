@@ -9,7 +9,7 @@ const App = () => {
   const [data, setData] = useState({
     data: [0, 0, 0.3, 0.4, 0, 0],
     sad: [],
-    url: "http://192.168.100.189:3000/ai/musiclist/8310",
+    url: "",
   });
 
   const TITLE_COLOR = "#686A6C";
