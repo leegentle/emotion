@@ -75,7 +75,10 @@ const App = () => {
             {FEEL_LIST.map((el, idx) => (
               <div>
                 <h2 className="text-xl text-center">{el}</h2>
-                <Progress type="circle" percent={data.data[idx] * 100} />
+                <Progress
+                  type="circle"
+                  percent={Math.floor(data.data[idx] * 100)}
+                />
               </div>
             ))}
           </div>
