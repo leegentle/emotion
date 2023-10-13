@@ -7,21 +7,21 @@ import postApi from "../api/api";
 const App = () => {
   const [input, setInput] = useState("");
   const [data, setData] = useState({
-    data: [],
-    level: "",
-    score: 0,
+    data: [0, 0, 0.3, 0.4, 0, 0],
+    sad: [],
   });
 
   const TITLE_COLOR = "#686A6C";
   const SUB_TITLE_COLOR = "#aeaeae";
   const PRIMART_COLOR = "#54B095";
 
-  const feelList = ["기쁨", "불안", "우울", "당황", "상처", "분노"];
+  const FEEL_LIST = ["기쁨", "불안", "우울", "당황", "상처", "분노"];
+  const SAD_LIST = ["우울", "경증", "중증"];
 
-  const emotion = (valList: number[]) => {
+  const isSad = (valList: number[]) => {
     const maxValue = Math.max.apply(null, valList);
     const idx = valList.findIndex((el) => el === maxValue);
-    return feelList[idx];
+    return FEEL_LIST[idx] === "우울";
   };
 
   const start = async () => {
@@ -72,7 +72,7 @@ const App = () => {
         <div>
           <h1 className={`text-2xl text-[${TITLE_COLOR}]`}>분석 결과</h1>
           <div className="flex justify-between mt-10">
-            {feelList.map((el, idx) => (
+            {FEEL_LIST.map((el, idx) => (
               <div>
                 <h2 className="text-xl text-center">{el}</h2>
                 <Progress type="circle" percent={data.data[idx] * 100} />
@@ -80,16 +80,22 @@ const App = () => {
             ))}
           </div>
         </div>
-        <div>
+        <div className="pb-16">
           <h1 className={`text-2xl mt-10 text-[${TITLE_COLOR}]`}>
-            당신은{emotion(data.data)}
+            우울증 분석 결과
           </h1>
-          <div className="flex justify-between mt-10">
-            {data.score !== 0 && (
+          <div className="flex justify-start mt-10 gap-14">
+            {isSad(data.data) ? (
               <>
-                {data.level}
-                {data.score}
+                {SAD_LIST.map((el, idx) => (
+                  <div>
+                    <h2 className="text-xl text-center">{el}</h2>
+                    <Progress type="circle" percent={data.sad[idx] * 100} />
+                  </div>
+                ))}
               </>
+            ) : (
+              <h2 className={`text-xl text-[${TITLE_COLOR}]`}>해당없음</h2>
             )}
           </div>
         </div>
