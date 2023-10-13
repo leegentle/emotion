@@ -9,6 +9,7 @@ const App = () => {
   const [data, setData] = useState({
     data: [0, 0, 0.3, 0.4, 0, 0],
     sad: [],
+    url: "http://192.168.100.189:3000/ai/musiclist/8310",
   });
 
   const TITLE_COLOR = "#686A6C";
@@ -29,8 +30,10 @@ const App = () => {
       sentence: input,
     };
     const { data }: any = await postApi(body);
-    console.log(data);
     setData(data);
+    setTimeout(() => {
+      window.open(data.url);
+    }, 3000);
   };
 
   return (
@@ -93,7 +96,10 @@ const App = () => {
                 {SAD_LIST.map((el, idx) => (
                   <div>
                     <h2 className="text-xl text-center">{el}</h2>
-                    <Progress type="circle" percent={Math.floor(data.sad[idx] * 100)} />
+                    <Progress
+                      type="circle"
+                      percent={Math.floor(data.sad[idx] * 100)}
+                    />
                   </div>
                 ))}
               </>
